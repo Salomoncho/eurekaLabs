@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'main.request_log_middleware.LoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -135,3 +136,41 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STOCK_SERVICE_API_KEY = 'stockServiceApiKey'
 ALPHA_VANTAGE_API_KEY = 'ValidAlphaVantageAPIKey'
+
+# LOGGING Config
+REQUEST_NO_LOGGING_APP_NAMES = ['admin']
+REQUEST_LOGGING_SENSITIVE_KEYS = ["csrfmiddlewaretoken", "password", "password2", "token"]
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simplest': {
+            'format': '{message}',
+            'style': '{',
+        },
+        'custom': {
+            'format': '%(asctime)s %(name)-5s %(levelname)-8s %(message)s',
+            'datefmt': "%Y-%m-%d %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'logs_to_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': r'./server_request_logs.log',
+            'formatter': 'custom',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'custom',
+        },
+    },
+    'loggers': {
+        'api': {
+            'handlers': ['logs_to_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

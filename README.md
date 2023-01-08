@@ -73,3 +73,11 @@ payload = {
 
 ```
 
+## About the Logs
+If you run the tests you will see that in the root folder will be created a ```server_request_logs.log``` file.
+
+It will log every API call protecting the sensitive data.
+(It validates key names in the REQUEST_LOGGING_SENSITIVE_KEYS setting)
+
+You can also set a list of app names to ignore when logging using the
+```REQUEST_NO_LOGGING_APP_NAMES``` setting. 
