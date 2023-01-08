@@ -6,3 +6,5 @@ REGISTER_ERROR_CREATING_USER = "Password fields didn't match."
 LOGIN_USER_AUTHENTICATED = 'User successfully authenticated'
 LOGIN_PASS_INCORRECT = 'Password is incorrect'
 LOGIN_USER_DOES_NOT_EXIST = 'User email does not exist, please use Register API'
+
+INVALID_API_CALL = 'Invalid API call, review the symbol you are sending'

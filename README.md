@@ -53,3 +53,23 @@ Make a POST request to ```http://127.0.0.1:8000/api/login/``` sending the follow
     "password": "TestPassword"
 }
 ```
+
+### Stock Service: /api/stock-service/
+Returns the daily stock information for the given symbol.
+
+Make a POST request to ```http://127.0.0.1:8000/api/stock-service/``` sending the following payload:
+
+```angular2html
+(Make sure to include the API_KEY in the HTTP_X_API_KEY key and set 'Content-Type' = 'application/json' )
+
+header = {
+  'x-api-key': 'TheApiKey',
+  'Content-Type': 'application/json'
+}
+
+payload = {
+    "stock_symbol": "META"
+}
+
+```
+

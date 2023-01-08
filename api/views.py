@@ -5,6 +5,9 @@ from api import serializers
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from api import api_messages
+from api.permissions import ValidateAPIKeyAccess
+from api.utils import process_alphavantage_data, validate_response
+import requests
 
 
 class RegisterAPIView(APIView):
@@ -70,3 +73,28 @@ class LoginAPIView(APIView):
 
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class StockServiceAPIView(APIView):
+    """ Stock Service API """
+
+    permission_classes = (ValidateAPIKeyAccess,)
+    serializer_class = serializers.StockServiceSerializer
+
+    def post(self, request):
+        """Method to send a request to the *Alpha Vantage API* by STOCK Name"""
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&' \
+                  f'symbol={serializer.validated_data.get("stock_symbol")}&apikey={settings.ALPHA_VANTAGE_API_KEY}'
+            resp = requests.get(url)
+
+            valid_data = validate_response(resp.json())
+            if not valid_data.get('data'):
+                return Response({'error': valid_data['error']}, status=valid_data['status'])
+            data = process_alphavantage_data(valid_data.get('data'))
+
+            return Response({'data': data}, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

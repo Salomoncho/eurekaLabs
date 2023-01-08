@@ -125,3 +125,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STOCK_SERVICE_API_KEY = 'stockServiceApiKey'
+ALPHA_VANTAGE_API_KEY = 'ValidAlphaVantageAPIKey'

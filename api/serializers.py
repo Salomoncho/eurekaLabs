@@ -47,3 +47,8 @@ class LoginSerializer(serializers.ModelSerializer):
                 'style': {'input_type': 'password'}
             }
         }
+
+
+class StockServiceSerializer(serializers.Serializer):
+    """Stock Service Serializer defines the request Structure and validates the data"""
+    stock_symbol = serializers.CharField(max_length=5)
