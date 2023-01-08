@@ -27,6 +27,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# throttling CONFIG
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'limit_per_minute': '5/minute',
+    }
+}
 
 # Application definition
 

@@ -13,6 +13,7 @@ import requests
 class RegisterAPIView(APIView):
     """Register Endpoint returns the API Key for the Stock Service if a new user is successfully registered"""
     serializer_class = serializers.RegisterSerializer
+    throttle_scope = 'limit_per_minute'
 
     def post(self, request):
         """Method to validate and register a new user."""
@@ -54,6 +55,7 @@ class LoginAPIView(APIView):
     """Login Endpoint returns the API Key for the Stock Service if user exist"""
 
     serializer_class = serializers.LoginSerializer
+    throttle_scope = 'limit_per_minute'
 
     def post(self, request):
         """Method to login into the service."""
@@ -80,6 +82,7 @@ class StockServiceAPIView(APIView):
 
     permission_classes = (ValidateAPIKeyAccess,)
     serializer_class = serializers.StockServiceSerializer
+    throttle_scope = 'limit_per_minute'
 
     def post(self, request):
         """Method to send a request to the *Alpha Vantage API* by STOCK Name"""

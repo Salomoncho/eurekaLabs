@@ -1,4 +1,3 @@
-from django.test import TestCase
 from django.urls import reverse
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -6,14 +5,15 @@ from api import serializers, api_messages
 
 from rest_framework.test import APIClient
 from rest_framework import status
-
+from api.test.base_test_class import BaseTestCase
 LOGIN_USER_URL = reverse('api:login')
 
 
-class LoginApiTests(TestCase):
+class LoginApiTests(BaseTestCase):
     """Test the User API (Non-Auth User)"""
 
     def setUp(self):
+        super().setUp()
         self.client = APIClient()
         self.generic_payload = {
             'email': 'salomontest@gmail.com',

@@ -1,4 +1,3 @@
-from django.test import TestCase
 from unittest.mock import patch
 from django.urls import reverse
 from django.conf import settings
@@ -6,6 +5,7 @@ from api import api_messages
 import json
 from rest_framework.test import APIClient
 from rest_framework import status
+from api.test.base_test_class import BaseTestCase
 
 
 STOCK_SERVICE_URL = reverse('api:stock-service')
@@ -152,10 +152,11 @@ STOCK_API_MOCK_RESPONSE = {
 }
 
 
-class StockServiceApiTests(TestCase):
+class StockServiceApiTests(BaseTestCase):
     """Test Stock Service API"""
 
     def setUp(self):
+        super().setUp()
         self.client = APIClient()
         self.generic_payload = {
             'email': 'salomontest@gmail.com',
