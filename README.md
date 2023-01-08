@@ -26,12 +26,30 @@ python3 manage.py runserver
 Returns the message and the API_KEY or the error if it fails registering the user.
 
 Make a POST request to ```http://127.0.0.1:8000/api/register/``` sending the following payload:
+
 ```angular2html
+(Make sure the header 'Content-Type' = 'application/json')
 {
     "name": "YourName",
     "last_name": "YourLastName",
     "email": "yourEmail@something.com",
     "password": "TestPassword",
     "password2": "TestPassword"
+}
+```
+
+### Login: /api/login/
+If you are already registered, but for some reason you don't have the API_KEY, you can use the login api to get it using
+your credentials.
+
+Returns the message and the API_KEY or the error if it fails login the user.
+
+Make a POST request to ```http://127.0.0.1:8000/api/login/``` sending the following payload:
+
+```angular2html
+(Make sure the header 'Content-Type' = 'application/json')
+{
+    "email": "yourEmail@something.com",
+    "password": "TestPassword"
 }
 ```

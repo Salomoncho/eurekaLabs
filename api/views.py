@@ -46,3 +46,27 @@ class RegisterAPIView(APIView):
                 )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class LoginAPIView(APIView):
+    """Login Endpoint returns the API Key for the Stock Service if user exist"""
+
+    serializer_class = serializers.LoginSerializer
+
+    def post(self, request):
+        """Method to login into the service."""
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            try:
+                user = get_user_model().objects.get(email=serializer.validated_data.get('email'))
+                if user.check_password(serializer.validated_data.get('password')):
+                    return Response(
+                        {'message': api_messages.LOGIN_USER_AUTHENTICATED, 'API_KEY': settings.STOCK_SERVICE_API_KEY}
+                    )
+                else:
+                    return Response({'message': api_messages.LOGIN_PASS_INCORRECT}, status=status.HTTP_400_BAD_REQUEST)
+            except get_user_model().DoesNotExist:
+                return Response({'message': api_messages.LOGIN_USER_DOES_NOT_EXIST}, status=status.HTTP_400_BAD_REQUEST)
+
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

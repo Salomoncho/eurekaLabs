@@ -34,3 +34,16 @@ class RegisterSerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 {"password": api_messages.REGISTER_PASSWORDS_DID_NOT_MATCH})
         return data
+
+
+class LoginSerializer(serializers.ModelSerializer):
+    """Login Serializer defines the Login API Structure"""
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'password']
+        extra_kwargs = {
+            'password': {
+                'write_only': True,
+                'style': {'input_type': 'password'}
+            }
+        }
