@@ -10,6 +10,9 @@ Install the requirements:
 ```angular2html
 pip install -r requirements.txt
 ```
+Note: If you are getting the following error instaling the ```psycopg2``` package:
+
+run ```sudo apt-get install libpq-dev```
 
 Run the tests (make sure you are in the root folder where manage.py is):
 ```angular2html
@@ -59,11 +62,13 @@ Returns the daily stock information for the given symbol.
 
 Make a POST request to ```http://127.0.0.1:8000/api/stock-service/``` sending the following payload:
 
+IMPORTANT: You have to set the ALPHA_VANTAGE_API_KEY setting that will be used to request data from Alpha Vantage API.
+
 ```angular2html
 (Make sure to include the API_KEY in the HTTP_X_API_KEY key and set 'Content-Type' = 'application/json' )
 
 header = {
-  'x-api-key': 'TheApiKey',
+  'x-api-key': 'Must be the same api key as the STOCK_SERVICE_API_KEY setting (settings.py)',
   'Content-Type': 'application/json'
 }
 
@@ -80,4 +85,4 @@ It will log every API call protecting the sensitive data.
 (It validates key names in the REQUEST_LOGGING_SENSITIVE_KEYS setting)
 
 You can also set a list of app names to ignore when logging using the
-```REQUEST_NO_LOGGING_APP_NAMES``` setting. 
+```REQUEST_NO_LOGGING_APP_NAMES``` setting.
