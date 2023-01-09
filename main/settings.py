@@ -148,11 +148,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STOCK_SERVICE_API_KEY = 'stockServiceApiKey'
 if 'STOCK_SERVICE_API_KEY' in os.environ:
-    SECRET_KEY = os.environ["STOCK_SERVICE_API_KEY"]
+    STOCK_SERVICE_API_KEY = os.environ["STOCK_SERVICE_API_KEY"]
 
 ALPHA_VANTAGE_API_KEY = 'ValidAlphaVantageAPIKey'
 if 'ALPHA_VANTAGE_API_KEY' in os.environ:
-    SECRET_KEY = os.environ["ALPHA_VANTAGE_API_KEY"]
+    ALPHA_VANTAGE_API_KEY = os.environ["ALPHA_VANTAGE_API_KEY"]
 
 # LOGGING Config
 REQUEST_NO_LOGGING_APP_NAMES = ['admin']
